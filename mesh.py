@@ -24,6 +24,6 @@ def make_model_matrix(translate, rotation, scale):
     mm = trm @ rxm @ rym @ rzm @ sm
     return mm
 
-print('Hello!')
+print('Hello, Nick!')
 mm = make_model_matrix([1, 2, 3], [90, 45, 0], [2, 2, 2])
 print(mm)
