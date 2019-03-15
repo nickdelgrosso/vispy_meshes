@@ -1,5 +1,7 @@
 import numpy as np
+from vispy import io
 from vispy.util import transforms as tr
+
 
 np.set_printoptions(suppress=True, precision=2)
 
@@ -24,6 +26,9 @@ def make_model_matrix(translate, rotation, scale):
     mm = trm @ rxm @ rym @ rzm @ sm
     return mm
 
-print('Hello, Nick!')
+
 mm = make_model_matrix([1, 2, 3], [90, 45, 0], [2, 2, 2])
-print(mm)
+
+vertices, faces, normals, texcoords = io.read_mesh('monkey.obj')
+assert len(vertices[0]) == 3, "Vertices are 3D!"
+assert len(faces[0]) == 3, "Mesh must be triangulated!"
