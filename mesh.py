@@ -1,7 +1,7 @@
 import numpy as np
 from vispy import io
 from vispy.util import transforms as tr
-np.set_printoptions(suppress=True, precision=2)
+
 
 class Mesh:
 
@@ -36,10 +36,3 @@ class Mesh:
         trm = tr.translate(self.position).T
         mm = trm @ rxm @ rym @ rzm @ sm
         return mm
-
-
-
-
-monkey = Mesh('monkey.obj', position=[10, 2, 3], rotation=[90, 45, 0], scale=[2, 2, 2])
-print(monkey.model_matrix)
-print(monkey.position)
