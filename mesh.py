@@ -1,6 +1,7 @@
 import numpy as np
-from vispy import io
+from vispy import io, gloo
 from vispy.util import transforms as tr
+from shaders import current_shader
 
 
 class Mesh:
@@ -14,6 +15,8 @@ class Mesh:
         self.position = position
         self.rotation = rotation
         self.scale = scale
+
+        self.load()
 
     @property
     def model_matrix(self):
@@ -36,3 +39,25 @@ class Mesh:
         trm = tr.translate(self.position).T
         mm = trm @ rxm @ rym @ rzm @ sm
         return mm
+
+    @property
+    def vertex_buffer(self):
+        attributes = [
+            ('vertex', np.float32, 3)
+        ]
+        data = np.zeros(len(self.vertices), attributes)
+        data['vertex'] = self.vertices
+        vertex_buffer = gloo.VertexBuffer(data)
+        return vertex_buffer
+
+    @property
+    def index_buffer(self):
+        index_buffer = gloo.IndexBuffer(self.faces)
+        return index_buffer
+
+    def load(self):
+        current_shader.bind(self.vertex_buffer)
+
+    def draw(self):
+        current_shader['model_matrix'] = self.model_matrix.T
+        current_shader.draw('triangles', self.index_buffer)
