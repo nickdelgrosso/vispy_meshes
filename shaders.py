@@ -5,6 +5,7 @@ attribute vec3 vertex;
 attribute vec3 normal;
 
 uniform mat4 model_matrix;
+uniform mat4 view_matrix;
 uniform mat4 normal_matrix;
 uniform mat4 projection_matrix;
 
@@ -14,7 +15,7 @@ varying vec3 v_normal;
 void main(){
     v_normal = (normal_matrix * vec4(normal, 1.)).xyz;
     world_position = (model_matrix * vec4(vertex, 1.)).xyz;
-    gl_Position = projection_matrix * vec4(world_position, 1.);
+    gl_Position = projection_matrix * view_matrix * vec4(world_position, 1.);
 }
 """
 
