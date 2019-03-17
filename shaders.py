@@ -19,7 +19,10 @@ varying vec3 world_position;
 vec3 color = vec3(1., 0., 0.);
 
 void main(){
-    gl_FragColor = vec4(world_position, 1.);
+
+
+    float diffuse = 1.;
+    gl_FragColor = vec4(diffuse * color, 1.);
 }
 """
 
