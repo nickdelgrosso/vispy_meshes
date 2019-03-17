@@ -2,13 +2,11 @@ from vispy import app, gloo
 from mesh import Mesh
 from camera import Camera
 
-
-# Import Mesh
-monkey = Mesh('monkey.obj', position=[0, 0, -3], rotation=[0, 0, 0], scale=[1, 1, 1])
+monkey = Mesh('monkey.obj')
+monkey.position = [0, 0, -3]
 
 camera = Camera()
 
-# Make Window
 canvas = app.Canvas(keys='interactive')
 
 @canvas.connect
