@@ -6,7 +6,7 @@ from shaders import current_shader
 
 class Mesh:
 
-    def __init__(self, obj_filename, position, rotation, scale):
+    def __init__(self, obj_filename, position, rotation, scale, color=(1., 0., 0.)):
         vertices, faces, normals, texcoords = io.read_mesh(obj_filename)
         assert len(vertices[0]) == 3, "Vertices are 3D!"
         assert len(faces[0]) == 3, "Mesh must be triangulated!"
@@ -16,6 +16,7 @@ class Mesh:
         self.position = position
         self.rotation = rotation
         self.scale = scale
+        self.color = color
 
         self.load()
 
@@ -68,5 +69,6 @@ class Mesh:
     def draw(self):
         current_shader['model_matrix'] = self.model_matrix.T
         current_shader['normal_matrix'] = self.normal_matrix.T
+        current_shader['color'] = self.color
         gloo.set_state(depth_test=True)
         current_shader.draw('triangles', self.index_buffer)

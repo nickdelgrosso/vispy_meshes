@@ -22,10 +22,12 @@ def on_draw(event):
     gloo.clear([0, 0, 1])
     monkey.rotation[1] += .1
 
-    monkey.position[0] = -1
+    monkey.position[0] = -1.4
+    monkey.color = (1., 0., 0.)
     monkey.draw()
 
-    monkey.position[0] = 1
+    monkey.position[0] = 1.4
+    monkey.color = (0., 1., 0.)
     monkey.draw()
     canvas.update()
 

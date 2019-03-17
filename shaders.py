@@ -19,10 +19,11 @@ void main(){
 """
 
 FRAG_SHADER = """
+uniform vec3 color;
+
 varying vec3 world_position;
 varying vec3 v_normal;
 
-vec3 color = vec3(1., 0., 0.);
 vec3 light_position = vec3(1., 0., 0.);
 vec3 camera_position = vec3(0., 0., 0.);
 float spec_weight = 50.;
