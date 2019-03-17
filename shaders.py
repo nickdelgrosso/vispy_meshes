@@ -24,12 +24,20 @@ varying vec3 v_normal;
 
 vec3 color = vec3(1., 0., 0.);
 vec3 light_position = vec3(1., 0., 0.);
+vec3 camera_position = vec3(0., 0., 0.);
+float spec_weight = 50.;
 
 void main(){
 
     vec3 light_direction = light_position - world_position;
     float diffuse = dot(normalize(v_normal), normalize(light_direction));
-    gl_FragColor = vec4(diffuse * color, 1.);
+
+    vec3 reflection_direction = reflect(light_direction, normalize(v_normal));
+    float cosAngle = max(0., -dot(normalize(camera_position - world_position), reflection_direction));
+    float specular = pow(cosAngle, spec_weight);
+
+
+    gl_FragColor = vec4(clamp(diffuse * color + specular * color, 0, 1), 1.);
 }
 """
 
