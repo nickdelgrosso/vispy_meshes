@@ -4,14 +4,22 @@ VERT_SHADER = """
 attribute vec3 vertex;
 uniform mat4 model_matrix;
 uniform mat4 projection_matrix;
+
+varying vec3 world_position;
+
 void main(){
-    gl_Position = projection_matrix * model_matrix * vec4(vertex, 1.);
+    world_position = (model_matrix * vec4(vertex, 1.)).xyz;
+    gl_Position = projection_matrix * vec4(world_position, 1.);
 }
 """
 
 FRAG_SHADER = """
+varying vec3 world_position;
+
+vec3 color = vec3(1., 0., 0.);
+
 void main(){
-    gl_FragColor = vec4(1., 0., 0., 1.);
+    gl_FragColor = vec4(world_position, 1.);
 }
 """
 

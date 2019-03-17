@@ -7,7 +7,7 @@ np.set_printoptions(suppress=True, precision=2)
 
 
 # Import Mesh
-monkey = Mesh('monkey.obj', position=[0, 0, -1], rotation=[0, 0, 0], scale=[.5, .5, .5])
+monkey = Mesh('monkey.obj', position=[0, 0, -1], rotation=[0, 0, 0], scale=[.2, .2, .2])
 
 # Send projection matrix to the shader
 projection_matrix = tr.perspective(90, 1.33, .1, 20)
@@ -19,9 +19,15 @@ canvas = app.Canvas(keys='interactive')
 
 @canvas.connect
 def on_draw(event):
-    monkey.rotation[1] += .1
     gloo.clear([0, 0, 1])
+    monkey.rotation[1] += .1
+
+    monkey.position[0] = -.5
     monkey.draw()
+
+    monkey.position[0] = 0.5
+    monkey.draw()
+    
     canvas.update()
 
 # Show Window, Run current_shader.
