@@ -12,6 +12,7 @@ canvas = app.Canvas(keys='interactive')
 @canvas.connect
 def on_draw(event):
     camera.activate()
+    camera.rotation[2] += 0.05
 
     gloo.clear([0, 0, 1])
     monkey.rotation[1] += .1
